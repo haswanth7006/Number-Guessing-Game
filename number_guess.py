@@ -4,6 +4,7 @@ import random
 st.title("🎯 Number Guessing Game")
 st.write("You have 7 chances to guess the number. Let's start!")
 
+# Session state to keep the number and guesses
 if 'num' not in st.session_state:
     st.session_state.num = None
 if 'gc' not in st.session_state:
@@ -13,15 +14,18 @@ if 'chances' not in st.session_state:
 if 'game_over' not in st.session_state:
     st.session_state.game_over = False
 
+# Input bounds
 low = st.number_input("Enter the Lower Bound:", value=1)
 high = st.number_input("Enter the Upper Bound:", value=100)
 
+# Start / Reset Game
 if st.button("Start Game") or st.session_state.num is None:
     st.session_state.num = random.randint(low, high)
     st.session_state.gc = 0
     st.session_state.game_over = False
     st.success(f"Game started! Guess a number between {low} and {high}.")
 
+# Guess input 
 if not st.session_state.game_over and st.session_state.num is not None:
     guess = st.number_input("Enter your guess:", value=low, min_value=low, max_value=high, step=1)
     
